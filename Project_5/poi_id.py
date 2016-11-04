@@ -127,6 +127,11 @@ for k, v in data_dict.items():
 
 #Remove outlier TOTAL line in pickle file.
 data_dict.pop( 'TOTAL', 0 )
+#Not a individual
+data_dict.pop( 'THE TRAVEL AGENCY IN THE PARK', 0 )
+#Only with NaN
+data_dict.pop( 'LOCKHART EUGENE E:', 0 )
+
 
 print(PlotOutlier(data_dict, 'salary', 'bonus'))
 
