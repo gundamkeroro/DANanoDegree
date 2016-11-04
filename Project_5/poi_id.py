@@ -125,20 +125,25 @@ for k, v in data_dict.items():
     	print "outlier:"
     	print k
 
+for k, v in data_dict.items():
+    if v['salary'] == 'NaN' and v['bonus'] == 'NaN' and v['from_messages'] == 'NaN' and v['to_messages'] == 'NaN' and v['from_poi_to_this_person'] == 'NaN' and v['from_this_person_to_poi'] == 'NaN': 
+      print "outlier:"
+      print k
+
 #Remove outlier TOTAL line in pickle file.
 data_dict.pop( 'TOTAL', 0 )
 #Not a individual
 data_dict.pop( 'THE TRAVEL AGENCY IN THE PARK', 0 )
 #Only with NaN
 data_dict.pop( 'LOCKHART EUGENE E:', 0 )
+print "Data removed."
 
+# print(PlotOutlier(data_dict, 'salary', 'bonus'))
 
-print(PlotOutlier(data_dict, 'salary', 'bonus'))
-
-for k, v in data_dict.items():
-    if v['salary'] != 'NaN' and v['salary'] > 1000000 and v['bonus'] != 'NaN' and v['bonus'] > 0.5: 
-    	print "outlier:"
-    	print k
+# for k, v in data_dict.items():
+#     if v['salary'] != 'NaN' and v['salary'] > 1000000 and v['bonus'] != 'NaN' and v['bonus'] > 0.5: 
+#     	print "outlier:"
+#     	print k
 
 
 
