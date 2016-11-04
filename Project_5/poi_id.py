@@ -153,8 +153,7 @@ my_dataset = data_dict
 data = featureFormat(my_dataset, features_list, sort_keys = True)
 labels, features = targetFeatureSplit(data)
 
-best_10_features = enron.get_k_best(data_dict, features_list, 9)
-
+best_10_features = enron.get_k_best(data_dict, features_list, 10)
 print best_10_features
 
 ### Task 4: Try a varity of classifiers
