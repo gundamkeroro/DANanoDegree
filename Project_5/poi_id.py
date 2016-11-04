@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys
+import csv
 import pickle
 sys.path.append("../tools/")
 
@@ -63,7 +64,6 @@ with open("final_project_dataset.pkl", "r") as data_file:
 #         for record in data_dict:
 #             person = data_dict[record]
 #             person['name'] = record
-#             assert set(person.keys()) == set(fieldnames)
 #             writer.writerow(person)
 
 # ### 1.1 Dataset Exploration
@@ -118,17 +118,12 @@ def PlotOutlier(data_dict, feature_x, feature_y):
 
 # 2.1 Visualise outliers
 
-print(PlotOutlier(data_dict, 'salary', 'bonus'))
+# print(PlotOutlier(data_dict, 'salary', 'bonus'))
 
-for k, v in data_dict.items():
-    if v['salary'] != 'NaN' and v['salary'] > 10000000: 
-    	print "outlier:"
-    	print k
-
-for k, v in data_dict.items():
-    if v['salary'] == 'NaN' and v['bonus'] == 'NaN' and v['from_messages'] == 'NaN' and v['to_messages'] == 'NaN' and v['from_poi_to_this_person'] == 'NaN' and v['from_this_person_to_poi'] == 'NaN': 
-      print "outlier:"
-      print k
+# for k, v in data_dict.items():
+#     if v['salary'] != 'NaN' and v['salary'] > 10000000: 
+#     	print "outlier:"
+#     	print k
 
 #Remove outlier TOTAL line in pickle file.
 data_dict.pop( 'TOTAL', 0 )
@@ -148,12 +143,19 @@ print "Data removed."
 
 
 ### Task 3: Create new feature(s)
+enron.fraction_poi_communication(data_dict)
+enron.total_wealth(data_dict)
 ### Store to my_dataset for easy export below.
+features_list += ['fraction_poi_communication', 'total_wealth']
 my_dataset = data_dict
 
 ### Extract features and labels from dataset for local testing
 data = featureFormat(my_dataset, features_list, sort_keys = True)
 labels, features = targetFeatureSplit(data)
+
+best_10_features = enron.get_k_best(data_dict, features_list, 9)
+
+print best_10_features
 
 ### Task 4: Try a varity of classifiers
 ### Please name your classifier clf for easy export below.
