@@ -116,7 +116,7 @@ def PlotOutlier(data_dict, feature_x, feature_y):
     plt.ylabel(feature_y)
     plt.show()
 
-# 2.1 Visualise outliers
+### 2.1 Visualise outliers
 
 # print(PlotOutlier(data_dict, 'salary', 'bonus'))
 
@@ -125,11 +125,11 @@ def PlotOutlier(data_dict, feature_x, feature_y):
 #     	print "outlier:"
 #     	print k
 
-#Remove outlier TOTAL line in pickle file.
+###Remove outlier TOTAL line in pickle file.
 data_dict.pop( 'TOTAL', 0 )
-#Not a individual
+###Not a individual
 data_dict.pop( 'THE TRAVEL AGENCY IN THE PARK', 0 )
-#Only with NaN
+###Only with NaN
 data_dict.pop( 'LOCKHART EUGENE E:', 0 )
 print "Data removed."
 
@@ -154,13 +154,39 @@ data = featureFormat(my_dataset, features_list, sort_keys = True)
 labels, features = targetFeatureSplit(data)
 
 best_10_features = enron.get_k_best(data_dict, features_list, 10)
-print best_10_features
+#print best_10_features
 
 ### Task 4: Try a varity of classifiers
 ### Please name your classifier clf for easy export below.
 ### Note that if you want to do PCA or other multi-stage operations,
 ### you'll need to use Pipelines. For more info:
 ### http://scikit-learn.org/stable/modules/pipeline.html
+### Naive Bayes:
+clf_nb = GaussianNB()
+print "GaussianNB : \n", tester.test_classifier(clf_nb, my_dataset, ['poi'] + best_10_features.keys())
+
+### Logistic Regression:
+features_lr = ['poi'] + enron.get_k_best(my_dataset, features_list, 9).keys()
+clf_lr = Pipeline(steps = [('scaler', StandardScaler()), ('pca', PCA(n_components = 4, whiten = False)), 
+     ('classifier', LogisticRegression(tol = 0.01, C = 1e-08, penalty = 'l2', random_state = 42))])
+
+print "Logistic Regression : \n", tester.test_classifier(clf_lr, my_dataset, features_lr)
+
+###Random Forest
+features_rf = ['poi'] + enron.get_k_best(my_dataset, features_list, 9).keys()
+clf_rf = Pipeline(steps=[('scaler', StandardScaler()), ('classifier', RandomForestClassifier(max_depth=5,
+                                              n_estimators=25,
+                                              random_state=42))])
+
+print "Random Forest : \n", tester.test_classifier(clf_rf, my_dataset, features_rf)
+
+### SVC
+
+
+
+
+
+
 
 # Provided to give you a starting point. Try a variety of classifiers.
 from sklearn.naive_bayes import GaussianNB
