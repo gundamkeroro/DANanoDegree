@@ -239,14 +239,14 @@ def tune_decision_tree():
 
 
 ### Naive Bayes:
-'''
+
 clf_nb = GaussianNB()
 print "GaussianNB : \n", tester.test_classifier(clf_nb, my_dataset, ['poi'] + best_10_features.keys())
 
 #tune_logistic_regression()
-'''
+
 ### Logistic Regression 
-features_lr = ['poi'] + enron.get_k_best(my_dataset, features_list, 9).keys()
+eatures_lr = ['poi'] + enron.get_k_best(my_dataset, features_list, 9).keys()
 clf_lr = Pipeline(steps = [('scaler', StandardScaler()), ('pca', PCA(n_components = 4, whiten = False)), 
      ('classifier', LogisticRegression(tol = 0.01, C = 1e-08, penalty = 'l2', random_state = 42))])
 
@@ -300,4 +300,4 @@ features_train, features_test, labels_train, labels_test = \
 ### that the version of poi_id.py that you submit can be run on its own and
 ### generates the necessary .pkl files for validating your results.
 
-dump_classifier_and_data(clf_lr, my_dataset, features_list)
+dump_classifier_and_data(clf_lr, my_dataset, features_lr)
