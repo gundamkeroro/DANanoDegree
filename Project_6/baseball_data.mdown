@@ -1,0 +1,24 @@
+## Summary
+This project involves visualization of baseball performance using data set from udacity. Two graphs are created:
+* Visualization between player's height vs home run and batting rate average.
+* Visualization between Player's prefer hand vs home run and batting rate average.
+
+## Design
+* In player's height vs home run and ratting rate, I use line plot to describe batting rate and use bubble plot to show home run. After feedback, I take a square root of home run to resize the bubble to make it more comfortable.
+
+* In Player's prefer hand vs home run and batting rate average, I use bar plot to show the distribution of and prefernce vs home run. After feedback, I add a line plot to show hand prefernce vs batting rate. 
+
+## Feedback
+### First round:
+
+* "Your plots should have a title to demostrate what kind of variable you are plotting and there should be a unit in your "x" and "y" axises."
+* "The First plot have some bubble plots but it looks like unbalanced, some of them are too small, which makes the plot a little ugly. Also color can be improved, red line on pink blue looks too striking."
+* "In the second plot, there is only a bar plot about "HR" but there is no information about "Batting rate", you should add more explaination."
+
+### Second round:
+
+* "In second plot, the line plot is hard to find the point which corresponding to the bar plot visually."
+
+## Resources
+http://dimplejs.org/examples_viewer.html?id=bars_vertical_grouped
+
