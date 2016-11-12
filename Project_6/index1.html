@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+
+        <style>
+        	h2 {
+        		text-align: center;
+        	}
+        	div {
+        		text-align: justify;
+        	}
+        	p {
+        		text-align: center;
+        		font-style: italic;
+        	}
+        </style>
+
+        <script type="text/javascript">
+        	"use strict";
+        	var margin = 50,
+        	    width = 700 - margin,
+                height = 450 - margin;
+
+        function average_HR_height(Data, value) {
+        	var filter = Data.filter(function(d) {
+        		return d['height'] == value;
+        	});
+        	if (filter.length > 0) {
+        		var sum = 0.0;
+        		for (var i = 0; i < filter.length; i++) {
+        			sum += filter[i]['HR'];
+        		}
+        		return sum / filter.length;
+        	} else {
+        		return 0;
+        	}
+        }  
+
+        function draw(data) {
+          d3.select("body")
+            .append("h2")
+            .text("Baseball Performance");
+
+          d3.select("body")
+            .append("div")
+            .text("Here we present a visual analysis about some parameters "
+                  + "that affects the performance of the baseball players. The "
+                  + "dataset is provided by Udacity, contains 1,157 baseball "
+                  + "players with information about their handedness (right or left" 
+                  + "handed), height (in inches), weight (in pounds), batting average"
+                  + ", and home runs. So performance is measured as their batting "
+                  + "average and the number of home runs; parameters are "
+                  + "handedness, height and weight. Since height and weight are "
+                  + "positively correlated (data not shown), we will use only "
+                  + "height parameter. My conclusions are: 1) smaller players "
+                  + "are better batting; 2) medium players are more constant in "
+                  + "their home run rates; and 3) left-handed players are "
+                  + "better in playing home runs.");
+
+            d3.select("body")
+              .append("p")
+              .text("Please use Chrome or Safari browsers for a correct "
+                    + "visualization.");
+
+           line_bubble_plot(data);
+           bar_plot(data);
+        };  
+
+        function line_bubble_plot(data) {
+            var svg  = d3.select("body").append("svg")
+            .attr("width", width + margin).attr("height", height + margin)
+            .append('g').attr('class', 'chart');
+
+            var myChart = new dimple.chart(svg, data);
+
+            var x = myChart.addCategoryAxis("x", "height");
+
+            var y = myChart.addMeasureAxis("y", "avg");
+
+            y.tickFormat = ',.2f'; 
+
+            myChart.addMeasureAxis("z", "HR");
+          
+            var serie1 = myChart.addSeries("Home runs (HR)", dimple.plot.bubble);
+            serie1.aggregate = dimple.aggregateMethod.avg;
+            myChart.addSeries("Batting average (avg)", dimple.plot.line)
+            .aggregate = dimple.aggregateMethod.avg;
+            myChart.assignColor("Batting average (avg)", "red");
+
+            myChart.addLegend(500, 50, 100, 100, "left");
+
+            myChart.draw();
+        };  
+
+        function bar_plot(data) {
+          var svg  = d3.select("body").append("svg")
+            .attr("width", width + margin).attr("height", height + margin)
+            .append('g').attr('class', 'chart');
+
+          var myChart = new dimple.chart(svg, data);
+          var x = myChart.addCategoryAxis("x", "handedness");
+          var y = myChart.addMeasureAxis("y", "HR");
+
+          myChart.addSeries("Home runs (HR)", dimple.plot.bar, [x, y])
+            .aggregate = dimple.aggregateMethod.avg;
+
+          myChart.draw();
+        } 
+        </script>
+    </head>
+<body>
+      <script type="text/javascript">
+    d3.csv("baseball_data.csv",
+      draw);
+  </script>
+</body>
+</html>
