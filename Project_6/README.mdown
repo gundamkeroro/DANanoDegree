@@ -1,0 +1,42 @@
+## Summary
+This project involves visualization of baseball performance using data set from udacity. Two graphs are created:
+* Visualization between player's height vs home run and batting rate average.
+* Visualization between Player's prefer hand vs home run and batting rate average.
+
+Here comes some finding through those plot:
+1. Shorter height players are better at batting; 
+2. Medium height players are more constant in their home run rates; 
+3. Left-handed players are better batting and doing home runs. 
+
+## Design
+* In player's height vs home run and ratting rate, I use line plot to describe batting rate and use bubble plot to show home run. After feedback, I take a square root of home run to resize the bubble to make it more comfortable.
+
+* In Player's prefer hand vs home run and batting rate average, I use bar plot to show the distribution of prefer hand vs home run. Beacuse bar plot is one of the easist way to show distribution in a graph. After feedback, I add a line plot to show hand preference vs batting rate. The reason I choose line plot is that is can show the difference between different performance directed.
+
+## Feedback
+### First round:
+* Feedback1 - W. Zhang
+  - Plots should have a title;
+  - "x" and "y" axis should have unit or entry name;
+
+  I add title and entry name on both my plots.
+* Feedback2 - R. Fan
+  - Resize bubble plots so that make it balanced;
+  - Modify the color to make plot look more comfortable;
+  
+  I take a square root of home run and I change red line to blue line.
+* Feedback3 - P. Gong
+  - Add information about "batting rate" in second plot;
+  
+  I add a blue line to show "batting rate" in second plot.
+
+### Second round:
+
+* Feedback1 - R.Fan
+  - Add some marks to make data in second line plot easy to see;
+
+  I add bubble in each of data point.
+
+## Resources
+http://dimplejs.org/examples_viewer.html?id=bars_vertical_grouped
+
